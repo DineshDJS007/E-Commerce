@@ -1,0 +1,177 @@
+/* ------------------ Container Styling ------------------ */
+.dashboard-container {
+  min-height: 100vh;
+  background-color: #040142;
+  padding: 20px;
+  color: #f9f5f5;
+}
+
+.dashboard-container .action-cards-column {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: minmax(100px, auto);
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.dashboard-container .stat-card {
+  cursor: pointer;
+  border-radius: 8px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-align: center;
+  background-color: #ffffff;
+  padding: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.dashboard-container .stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-container .stat-card h6 {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #252525;
+}
+
+.dashboard-container .stat-card h3 {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #01016c;
+}
+
+.dashboard-container .stat-card.active-card {
+  border: 2px solid #525253;
+  background-color: #e7f1ff;
+}
+
+.dashboard-container .recent-orders h5 {
+  color: #fff;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+/* ------------------ Table Styling ------------------ */
+.dashboard-container .table-responsive {
+  overflow-x: auto;
+  margin-top: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.dashboard-container .table {
+  min-width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 8px;
+}
+
+.dashboard-container .table th,
+.dashboard-container .table td {
+  vertical-align: middle;
+  white-space: nowrap;
+  padding: 10px;
+  background-color: #ffffff;
+  border-radius: 4px;
+}
+
+.dashboard-container .table img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.dashboard-container .badge {
+  font-size: 0.85rem;
+  padding: 0.4em 0.6em;
+}
+
+.dashboard-container .table th:nth-child(1),
+.dashboard-container .table td:nth-child(1) { min-width: 150px; }
+.dashboard-container .table th:nth-child(2),
+.dashboard-container .table td:nth-child(2) { min-width: 130px; }
+.dashboard-container .table th:nth-child(3),
+.dashboard-container .table td:nth-child(3) { min-width: 130px; }
+.dashboard-container .table th:nth-child(4),
+.dashboard-container .table td:nth-child(4) { min-width: 280px; }
+.dashboard-container .table th:nth-child(5),
+.dashboard-container .table td:nth-child(5) { min-width: 220px; }
+.dashboard-container .table th:nth-child(6),
+.dashboard-container .table td:nth-child(6) { min-width: 100px; }
+.dashboard-container .table th:nth-child(7),
+.dashboard-container .table td:nth-child(7) { min-width: 120px; }
+.dashboard-container .table th:nth-child(8),
+.dashboard-container .table td:nth-child(8) { min-width: 140px; }
+.dashboard-container .table th:nth-child(9),
+.dashboard-container .table td:nth-child(9) { min-width: 160px; }
+.dashboard-container .table th:nth-child(10),
+.dashboard-container .table td:nth-child(10) { min-width: 150px; }
+
+/* ------------------ Responsive Adjustments ------------------ */
+@media (max-width: 1200px) {
+  .dashboard-container .action-cards-column {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+
+  .dashboard-container .stat-card h3 {
+    font-size: 1.2rem;
+  }
+
+  .dashboard-container .stat-card h6 {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-container {
+    margin-left: 0;
+    margin-top: 140px;
+    padding: 15px;
+  }
+
+  .dashboard-container .stat-card {
+    font-size: 0.85rem;
+    padding: 0.6rem;
+  }
+
+  .dashboard-container .action-cards-column {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
+
+  .dashboard-container .table-responsive {
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 576px) {
+  .dashboard-container .table th,
+  .dashboard-container .table td {
+    font-size: 0.8rem;
+    padding: 0.5rem;
+  }
+
+  .dashboard-container .stat-card h6 {
+    font-size: 0.75rem;
+  }
+
+  .dashboard-container .stat-card h3 {
+    font-size: 1rem;
+  }
+
+  .dashboard-container .table img {
+    width: 30px !important;
+    height: 30px !important;
+    margin-right: 4px;
+  }
+
+  .dashboard-container .action-cards-column {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Prevent horizontal scroll globally */
+body {
+  overflow-x: hidden;
+}

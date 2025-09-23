@@ -1,0 +1,155 @@
+/* ---------------- Cart Page Container ---------------- */
+.cart-page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding-bottom: 2rem;
+}
+
+/* ---------------- Individual Cart Item ---------------- */
+.cart-item {
+  background-color: #fff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.cart-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* ---------------- Cart Item Image ---------------- */
+.cart-item-img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  transition: transform 0.3s ease;
+}
+
+.cart-item-img:hover {
+  transform: scale(1.05);
+}
+
+/* ---------------- Product Info ---------------- */
+.cart-item .flex-grow-1 h6 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #01016c;
+  margin-bottom: 0.25rem;
+}
+
+.cart-item .flex-grow-1 p {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+/* ---------------- Quantity Controls ---------------- */
+.cart-item .d-flex.align-items-center.gap-2 button {
+  min-width: 30px;
+  padding: 0 8px;
+}
+
+.cart-item .d-flex.align-items-center.gap-2 span {
+  min-width: 20px;
+  text-align: center;
+}
+
+/* ---------------- Action Buttons ---------------- */
+.cart-item .btn-primary.btn-sm {
+  background-color: #01016c;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.cart-item .btn-primary.btn-sm:hover {
+  background-color: #0000b3;
+}
+
+.cart-item .btn-outline-danger.btn-sm {
+  border-color: #dc3545;
+  color: #dc3545;
+}
+
+.cart-item .btn-outline-danger.btn-sm:hover {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+/* ---------------- Empty Cart ---------------- */
+.cart-empty {
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  padding: 3rem 1rem;
+  text-align: center;
+}
+
+.cart-empty h4 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.cart-empty .btn-primary {
+  min-width: 150px;
+}
+
+/* ---------------- Total Section ---------------- */
+.cart-total {
+  margin-top: 2rem;
+  text-align: right;
+}
+
+.cart-total h5 {
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: #01016c;
+}
+
+.cart-total button {
+  min-width: 200px;
+}
+
+/* ---------------- Responsive ---------------- */
+@media (max-width: 768px) {
+  .cart-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cart-item-img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 0.5rem;
+  }
+
+  .text-end {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+  }
+
+  .cart-total button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .cart-item-img {
+    width: 70px;
+    height: 70px;
+  }
+
+  .cart-empty h4 {
+    font-size: 1.25rem;
+  }
+
+  .cart-total h5 {
+    font-size: 1.1rem;
+  }
+}

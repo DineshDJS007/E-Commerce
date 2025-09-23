@@ -1,0 +1,169 @@
+/* --------------------------
+   Register Page Container
+--------------------------- */
+.register-page {
+  min-height: 100vh;
+  background: #f5f6fa;
+  padding: 20px;
+}
+
+/* Center card when not embedded */
+.register-page.d-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* --------------------------
+   Card Styling
+--------------------------- */
+.register-page .card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 30px 25px;
+  transition: all 0.3s ease;
+}
+
+.register-page .card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Card Header */
+.register-page h4 {
+  font-weight: 600;
+  color: #151414;
+}
+
+/* --------------------------
+   Input Fields
+--------------------------- */
+.register-page .form-control {
+  border-radius: 8px;
+  border: 1px solid #ced4da;
+  padding: 12px 15px;
+  font-size: 0.95rem;
+  transition: border-color 0.3s;
+}
+
+.register-page .form-control:focus {
+  border-color: #28a745;
+  box-shadow: 0 0 5px rgba(40, 167, 69, 0.3);
+  outline: none;
+}
+
+/* --------------------------
+   Buttons
+--------------------------- */
+.register-page .btn {
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 10px 0;
+  transition: all 0.3s ease;
+}
+
+.register-page .btn-success {
+  background: #28a745;
+  border: none;
+}
+
+.register-page .btn-success:hover {
+  background: #218838;
+}
+
+.register-page .btn:disabled {
+  opacity: 0.7;
+}
+
+/* --------------------------
+   Links
+--------------------------- */
+.register-page a {
+  text-decoration: none;
+}
+
+.register-page a.text-primary {
+  color: #007bff;
+  font-weight: 500;
+}
+
+.register-page a.text-primary:hover {
+  text-decoration: underline;
+}
+
+/* --------------------------
+   Toast Messages
+--------------------------- */
+.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.toast {
+  min-width: 250px;
+  max-width: 350px;
+  border-radius: 8px;
+  padding: 12px 20px;
+  color: #fff;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transform: translateX(100%);
+  animation: slideIn 0.5s forwards, fadeOut 0.5s 3s forwards;
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* --------------------------
+   Responsive
+--------------------------- */
+@media (max-width: 768px) {
+  .register-page.d-flex {
+    padding: 20px;
+  }
+
+  .register-page .card {
+    padding: 20px 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .register-page .card {
+    padding: 15px 10px;
+  }
+
+  .register-page .form-control {
+    font-size: 0.9rem;
+    padding: 10px 12px;
+  }
+
+  .register-page .btn {
+    font-size: 0.9rem;
+    padding: 8px 0;
+  }
+}

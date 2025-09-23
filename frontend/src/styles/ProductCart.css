@@ -1,0 +1,77 @@
+/* ---------------- Product Card ---------------- */
+.product-card {
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  background-color: #fff;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* ---------------- Product Image Wrapper ---------------- */
+.product-img-wrapper {
+  height: 220px; /* Increased from 180px */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: #f8f9fa;
+}
+
+/* ---------------- Product Image ---------------- */
+.product-img {
+  max-height: 100%;
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-img {
+  transform: scale(1.05);
+}
+
+/* ---------------- Card Body Elements ---------------- */
+.card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-title {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: #01016c;
+}
+
+.product-rating {
+  margin-bottom: 0.5rem;
+  color: #f0ad4e; /* Optional: gold color for stars */
+}
+
+.card-text {
+  font-size: 0.95rem;
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+/* ---------------- View Details Button ---------------- */
+.btn-primary {
+  background-color: #01016c;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #0000b3;
+}
+
+/* ---------------- Responsive Adjustments ---------------- */
+@media (max-width: 576px) {
+  .product-img-wrapper {
+    height: 180px; /* slightly smaller on mobile */
+  }
+}

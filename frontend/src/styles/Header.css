@@ -1,0 +1,82 @@
+/* Header Navbar */
+.header-navbar {
+  background-color: #01016c;
+  padding: 0.5rem 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Brand */
+.navbar-brand {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #fff !important;
+}
+
+/* Nav Links */
+.nav-link {
+  color: #fff !important;
+  margin: 0 0.5rem;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.nav-link:hover {
+  color: #ffc107 !important;
+  transform: scale(1.05);
+}
+
+/* Active User Link */
+.nav-link.text-warning {
+  font-weight: 500;
+}
+
+/* Cart Badge */
+.nav-item.position-relative .badge {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  font-size: 0.65rem;
+  font-weight: bold;
+  padding: 0.25em 0.4em;
+  border-radius: 50%;
+  background-color: #ff4d4d;
+  color: #fff;
+}
+
+/* Buttons (if used) */
+.btn-outline-light {
+  font-size: 0.8rem;
+  margin-left: 0.5rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.btn-outline-light:hover {
+  background-color: #ffc107;
+  color: #01016c;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .navbar-nav .nav-link {
+    margin: 0.3rem 0;
+    text-align: center;
+  }
+}
+
+@media (max-width: 576px) {
+  .navbar-brand {
+    font-size: 1.3rem;
+  }
+
+  .nav-link {
+    font-size: 0.9rem;
+  }
+
+  .btn-outline-light {
+    margin: 0.3rem 0;
+    width: 100%;
+  }
+}

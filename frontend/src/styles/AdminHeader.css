@@ -1,0 +1,82 @@
+/* ------------------ Admin Header ------------------ */
+.admin-header {
+  background: linear-gradient(90deg, #090149, #01037e, rgb(1, 12, 91));
+  border-radius: 10px;
+  position: sticky; /* sticky header */
+  top: 0;
+  z-index: 9999; /* ensures header stays on top */
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.4);
+}
+
+/* Header Title */
+.admin-header h4.admin-title {
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+}
+
+/* User Info */
+.admin-header .admin-user {
+  font-size: 1.3rem;
+  color: #ffffff;
+}
+
+/* Avatar */
+.admin-header .admin-avatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: #1a06d5;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-left: 8px;
+}
+
+/* ------------------ Automatic content padding below header ------------------ */
+body > .dashboard-container,
+body > .manage-orders-container,
+body > .manage-products-container,
+body > .add-product-container {
+  padding-top: 80px; /* header height approx, adjust if header changes */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 576px) {
+  .admin-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.6rem 1rem;
+    border-radius: 0; /* optional: flat corners on mobile */
+  }
+
+  .admin-header .admin-user {
+    margin-top: 6px;
+  }
+
+  .admin-header .admin-avatar {
+    width: 30px;
+    height: 30px;
+    font-size: 0.85rem;
+  }
+
+  body > .dashboard-container,
+  body > .manage-orders-container,
+  body > .manage-products-container,
+  body > .add-product-container {
+    padding-top: 120px; /* more padding for mobile header height */
+  }
+}
+
+/* Prevent horizontal scroll globally */
+body {
+  overflow-x: hidden;
+}

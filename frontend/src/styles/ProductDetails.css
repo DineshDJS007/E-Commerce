@@ -1,0 +1,112 @@
+/* ---------------- Product Image ---------------- */
+.product-details img {
+  max-height: 480px;
+  width: auto;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-details img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+/* ---------------- Headings ---------------- */
+.product-details h2 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  color: #01016c;
+}
+
+.product-details h3 {
+  font-size: 1.5rem;
+  color: #0d6efd;
+  margin-bottom: 1rem;
+}
+
+/* ---------------- Paragraphs ---------------- */
+.product-details p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 0.8rem;
+}
+
+.product-details p.text-muted {
+  color: #6c757d;
+  font-size: 0.95rem;
+}
+
+/* ---------------- Alerts ---------------- */
+.product-details .alert {
+  font-size: 0.95rem;
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+}
+
+/* ---------------- Buttons ---------------- */
+.product-details .btn {
+  border-radius: 25px;
+  font-weight: 500;
+  padding: 0.6rem 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-details .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* ---------------- Button Layout ---------------- */
+.product-details .d-flex.gap-2 .btn {
+  width: 50%;
+}
+
+/* ---------------- Responsive ---------------- */
+@media (max-width: 768px) {
+  .product-details {
+    flex-direction: column;
+  }
+
+  .product-details img {
+    max-height: 320px;
+    margin-bottom: 20px;
+  }
+
+  .product-details h2 {
+    font-size: 1.5rem;
+  }
+
+  .product-details h3 {
+    font-size: 1.3rem;
+  }
+
+  .product-details p {
+    font-size: 0.95rem;
+  }
+
+  .product-details .d-flex.gap-2 .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-details img {
+    max-height: 250px;
+  }
+
+  .product-details h2 {
+    font-size: 1.3rem;
+  }
+
+  .product-details h3 {
+    font-size: 1.1rem;
+  }
+
+  .product-details p {
+    font-size: 0.9rem;
+  }
+}

@@ -1,0 +1,97 @@
+/* AdminLogin.css */
+
+/* Page layout */
+.admin-login-page {
+  background: #f5f5f5;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Login form */
+.admin-login-form {
+  width: 400px;
+  max-width: 90%;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 30px 25px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Form heading */
+.admin-login-form h3 {
+  font-weight: 600;
+  color: #333;
+}
+
+/* Input fields */
+.admin-login-form .form-control {
+  height: 45px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  transition: border-color 0.2s;
+}
+
+.admin-login-form .form-control:focus {
+  border-color: #007bff;
+  box-shadow: none;
+}
+
+/* Button */
+.admin-login-form .btn-primary {
+  height: 45px;
+  font-weight: 500;
+  border-radius: 6px;
+  background-color: #007bff;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.admin-login-form .btn-primary:hover {
+  background-color: #0056b3;
+}
+
+/* Error message */
+.admin-login-form p.text-danger {
+  font-size: 14px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .admin-login-page {
+    padding: 20px;
+  }
+
+  .admin-login-form {
+    padding: 25px 20px;
+  }
+
+  .admin-login-form h3 {
+    font-size: 20px;
+  }
+
+  .admin-login-form .form-control {
+    font-size: 13px;
+  }
+
+  .admin-login-form .btn-primary {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-login-form {
+    width: 100%;
+    padding: 20px 15px;
+  }
+
+  .admin-login-form h3 {
+    font-size: 18px;
+  }
+
+  .admin-login-form .btn-primary {
+    font-size: 13px;
+  }
+}

@@ -1,0 +1,127 @@
+/* ---------------- Container ---------------- */
+.payment-container {
+  max-width: 1000px;
+  margin: 20px auto;
+  font-family: 'Arial', sans-serif;
+  color: #212529;
+}
+
+/* ---------------- Headings ---------------- */
+.payment-container h5,
+.payment-container h6 {
+  color: #000000;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+}
+
+/* ---------------- Cards ---------------- */
+.payment-container .card {
+  border-radius: 12px;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.payment-container .card:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+/* ---------------- Form Inputs ---------------- */
+.payment-container .form-control,
+.payment-container .form-select {
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.95rem;
+  margin-bottom: 10px;
+  border: 1px solid #ced4da;
+  transition: all 0.2s ease;
+}
+
+.payment-container .form-control:focus,
+.payment-container .form-select:focus {
+  outline: none;
+  border-color: #0d6efd;
+  box-shadow: 0 0 8px rgba(13, 110, 253, 0.15);
+}
+
+/* ---------------- Buttons ---------------- */
+.payment-container .btn-warning {
+  background-color: #ffc107;
+  border: none;
+  font-weight: 600;
+  padding: 12px;
+  border-radius: 25px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.payment-container .btn-warning:hover {
+  background-color: #e0a800;
+  transform: translateY(-1px);
+}
+
+/* ---------------- Price Summary ---------------- */
+.payment-container .card p {
+  margin-bottom: 0.8rem;
+  font-size: 0.95rem;
+  color: #495057;
+}
+
+.payment-container .card p strong {
+  font-size: 1.05rem;
+  color: #000000;
+}
+
+/* Horizontal line */
+.payment-container hr {
+  border-top: 1px solid #343434;
+  margin: 10px 0;
+}
+
+/* Muted text */
+.payment-container .text-muted {
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+/* ---------------- Responsive ---------------- */
+@media (max-width: 768px) {
+  .payment-container .row.g-4 {
+    flex-direction: column;
+  }
+
+  .payment-container .col-lg-7,
+  .payment-container .col-lg-5 {
+    max-width: 100%;
+  }
+
+  .payment-container .btn-warning {
+    font-size: 0.95rem;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .payment-container .card {
+    padding: 15px;
+  }
+
+  .payment-container h5,
+  .payment-container h6 {
+    font-size: 1rem;
+  }
+
+  .payment-container .form-control,
+  .payment-container .form-select {
+    font-size: 0.9rem;
+    padding: 6px 10px;
+  }
+
+  .payment-container .btn-warning {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+}

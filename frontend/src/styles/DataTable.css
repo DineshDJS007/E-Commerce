@@ -1,0 +1,92 @@
+/* ------------------ Table Container ------------------ */
+.data-table-container {
+  width: 100%;
+  overflow-x: auto; /* horizontal scroll only when needed */
+  -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
+  margin-top: 1rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+/* ------------------ Table Styling ------------------ */
+.data-table-container table {
+  width: 100%;
+  min-width: 100%; /* allow table to shrink on smaller screens */
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.data-table-container th,
+.data-table-container td {
+  vertical-align: middle;
+  white-space: nowrap; /* prevent wrapping */
+  text-align: left;
+  padding: 0.75rem 1rem;
+}
+
+.data-table-container th {
+  font-weight: 600;
+  background-color: #f8f9fa;
+  position: sticky;
+  top: 0; /* Sticky header */
+  z-index: 10;
+}
+
+/* Optional hover effect for rows */
+.data-table-container.table-hover tbody tr:hover {
+  background-color: rgba(13, 110, 253, 0.05);
+}
+
+/* Action buttons in cells */
+.data-table-container td button {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  white-space: nowrap;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1199px) {
+  .data-table-container th,
+  .data-table-container td {
+    padding: 0.6rem 0.8rem;
+  }
+
+  .data-table-container td button {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.4rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .data-table-container th,
+  .data-table-container td {
+    font-size: 0.7rem;
+    min-width: 80px;
+    padding: 0.5rem 0.6rem;
+  }
+
+  .data-table-container td button {
+    font-size: 0.65rem;
+    padding: 0.15rem 0.3rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .data-table-container th,
+  .data-table-container td {
+    font-size: 0.65rem;
+    min-width: 60px;
+    padding: 0.4rem 0.5rem;
+  }
+
+  .data-table-container td button {
+    font-size: 0.6rem;
+    padding: 0.1rem 0.25rem;
+  }
+}
+
+/* Prevent horizontal scroll globally */
+body {
+  overflow-x: hidden;
+}

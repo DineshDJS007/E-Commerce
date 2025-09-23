@@ -1,0 +1,144 @@
+/* ---------------- Page Layout ---------------- */
+.login-page {
+  min-height: 60vh;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ---------------- Card ---------------- */
+.login-page .card {
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.login-page .card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* ---------------- Headings ---------------- */
+.login-page h3 {
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+/* ---------------- Inputs ---------------- */
+.login-page .form-control {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  transition: 0.3s;
+  margin-bottom: 15px;
+}
+
+.login-page .form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  outline: none;
+}
+
+/* ---------------- Buttons ---------------- */
+.login-page .btn {
+  width: 100%;
+  padding: 10px;
+  font-weight: 600;
+  border-radius: 6px;
+  background-color: #01016c;
+  color: #fff;
+  border: none;
+  transition: 0.3s;
+}
+
+.login-page .btn:hover {
+  opacity: 0.9;
+}
+
+/* ---------------- Paragraphs ---------------- */
+.login-page p {
+  font-size: 0.9rem;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+/* ---------------- Toast Container ---------------- */
+.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ---------------- Toast ---------------- */
+.toast {
+  min-width: 250px;
+  max-width: 350px;
+  border-radius: 8px;
+  color: #fff;
+  padding: 12px 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  font-size: 0.9rem;
+  opacity: 0;
+  transform: translateX(100%);
+  animation: slideIn 0.5s forwards, fadeOut 0.5s 3s forwards;
+}
+
+.toast.bg-success {
+  background-color: #28a745;
+}
+
+.toast.bg-danger {
+  background-color: #dc3545;
+}
+
+/* Toast Slide In Animation */
+@keyframes slideIn {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+}
+
+/* Toast Fade Out Animation */
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* ---------------- Responsive ---------------- */
+@media (max-width: 768px) {
+  .login-page .card {
+    padding: 20px;
+  }
+  .toast {
+    min-width: 200px;
+    max-width: 300px;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .login-page {
+    padding: 10px;
+  }
+  .login-page .btn {
+    font-size: 0.9rem;
+  }
+}

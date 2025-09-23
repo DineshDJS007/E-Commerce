@@ -1,0 +1,93 @@
+.add-product-container {
+  min-height: 90vh;
+  background-color: #040142;
+  padding: 1rem;
+}
+
+.add-product-container h4 {
+  color: #f2f2f3;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.add-product-form {
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.add-product-form input.form-control,
+.add-product-form select.form-select,
+.add-product-form textarea.form-control {
+  width: 100%;
+  padding: 0.6rem;
+  font-size: 1rem;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+}
+
+.add-product-form input.form-control:focus,
+.add-product-form select.form-select:focus,
+.add-product-form textarea.form-control:focus {
+  outline: none;
+  border-color: #0d6efd;
+}
+
+.img-thumbnail {
+  display: block;
+  max-width: 150px;
+  max-height: 150px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+}
+
+.btn-success {
+  padding: 0.6rem;
+  font-size: 1.1rem;
+  border-radius: 6px;
+}
+
+/* Toast Message Styling */
+.toast-message {
+  background-color: #28a745;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 6px;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  font-weight: 500;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+  animation: fadeInOut 3s ease forwards;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(-20px); }
+  10%, 90% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-20px); }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .add-product-container .col-md-9 {
+    padding: 0 15px;
+  }
+
+  .add-product-form {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .add-product-form input.form-control,
+  .add-product-form select.form-select,
+  .add-product-form textarea.form-control {
+    font-size: 0.9rem;
+  }
+
+  .btn-success {
+    font-size: 1rem;
+  }
+}

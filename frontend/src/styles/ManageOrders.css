@@ -1,0 +1,106 @@
+.manage-orders-container {
+  min-height: 100vh;
+  background-color: #040142;
+  padding: 1rem;
+  color: #fff;
+}
+
+.manage-orders-container h4 {
+  color: #fff;
+}
+
+/* Search Bar */
+.manage-orders-container input.form-control {
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  border: 1px solid #ced4da;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+}
+
+/* Table Styling */
+.manage-orders-container .table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.manage-orders-container .table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.manage-orders-container .table th,
+.manage-orders-container .table td {
+  vertical-align: middle;
+  white-space: nowrap;
+  padding: 0.75rem;
+  font-size: 0.875rem;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.manage-orders-container .table th {
+  background-color: #f1f1f1;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.manage-orders-container .table-hover tbody tr:hover {
+  background-color: rgba(13, 110, 253, 0.1);
+}
+
+.manage-orders-container .table td img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-right: 8px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 991px) {
+  .manage-orders-container .table th,
+  .manage-orders-container .table td {
+    font-size: 0.8rem;
+    padding: 0.5rem;
+  }
+
+  .manage-orders-container .table td img {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+@media (max-width: 767px) {
+  .manage-orders-container .table {
+    min-width: unset;
+  }
+
+  .manage-orders-container input.form-control {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.75rem;
+  }
+}
+
+@media (max-width: 575px) {
+  .manage-orders-container .table th,
+  .manage-orders-container .table td {
+    font-size: 0.7rem;
+    padding: 0.4rem;
+  }
+
+  .manage-orders-container .table td img {
+    width: 25px;
+    height: 25px;
+  }
+
+  .manage-orders-container input.form-control {
+    font-size: 0.85rem;
+    padding: 0.3rem 0.5rem;
+  }
+}
