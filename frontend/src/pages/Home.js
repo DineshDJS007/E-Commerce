@@ -15,7 +15,7 @@ export default function Home() {
         setError("");
 
         const res = await fetch(
-          "http://localhost:9000/api/products?limit=4",
+          `${process.env.REACT_APP_BACKEND_URL}/api/products?limit=4`,
           { credentials: "include" } // ✅ for session auth
         );
 

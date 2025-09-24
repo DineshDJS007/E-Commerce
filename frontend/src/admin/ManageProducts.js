@@ -7,13 +7,12 @@ import "../styles/ManageProducts.css";
 
 export default function ManageProducts() {
   const [products, setProducts] = useState([]);
-  const BASE_URL = "http://localhost:9000";
   const navigate = useNavigate();
 
   // Load all products
   const load = async () => {
     try {
-      const res = await fetch(`${BASE_URL}/api/products`);
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/products`);
       if (!res.ok) throw new Error("Failed to fetch products");
       const data = await res.json();
 
@@ -21,7 +20,7 @@ export default function ManageProducts() {
         ...p,
         image: p.image?.startsWith("http")
           ? p.image
-          : `${BASE_URL}${p.image.startsWith("/") ? "" : "/"}${p.image}`,
+          : `${process.env.REACT_APP_BACKEND_URL}${p.image.startsWith("/") ? "" : "/"}${p.image}`,
       }));
 
       setProducts(updatedData);
@@ -39,7 +38,7 @@ export default function ManageProducts() {
     if (!window.confirm(`Are you sure you want to delete "${row.name}"?`)) return;
 
     try {
-      const res = await fetch(`${BASE_URL}/api/products/${row._id}`, {
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/products/${row._id}`, {
         method: "DELETE",
       });
       if (!res.ok) throw new Error("Failed to delete product");

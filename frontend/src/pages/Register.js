@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles/Login.css"; // Include toast CSS
+import "../styles/Register.css"; // Include toast CSS
 
 export default function Register({ embedded }) {
   const [form, setForm] = useState({
@@ -34,7 +34,7 @@ export default function Register({ embedded }) {
 
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:9000/api/auth/register", {
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),

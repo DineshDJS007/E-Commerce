@@ -8,19 +8,18 @@ export default function Dashboard() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filterStatus, setFilterStatus] = useState("All");
-  const BASE_URL = "http://localhost:9000";
 
   const normalizeImage = (img) => {
     if (!img) return "https://via.placeholder.com/150";
     return img.startsWith("http")
       ? img
-      : `${BASE_URL}${img.startsWith("/") ? "" : "/"}${img}`;
+      : `${process.env.REACT_APP_BACKEND_URL}${img.startsWith("/") ? "" : "/"}${img}`;
   };
 
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const { data } = await axios.get(`${BASE_URL}/api/orders/admin`, {
+        const { data } = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/orders/admin`, {
           withCredentials: true,
         });
         setOrders(data);
@@ -47,7 +46,7 @@ export default function Dashboard() {
   const handleStatusChange = async (orderId, newStatus) => {
     try {
       await axios.put(
-        `${BASE_URL}/api/orders/admin/${orderId}/status`,
+        `${process.env.REACT_APP_BACKEND_URL}/api/orders/admin/${orderId}/status`,
         { status: newStatus },
         { withCredentials: true }
       );

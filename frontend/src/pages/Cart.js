@@ -7,7 +7,6 @@ import { UserContext } from "../contexts/userContext";
 export default function Cart() {
   const [items, setItems] = useState([]);
   const { cart, setCart } = useContext(UserContext); // context for cart count
-  const BASE_URL = "http://localhost:9000";
   const navigate = useNavigate();
 
   // Normalize image URL
@@ -15,13 +14,13 @@ export default function Cart() {
     if (!img) return "";
     return img.startsWith("http")
       ? img
-      : `${BASE_URL}${img.startsWith("/") ? "" : "/"}${img}`;
+      : `${process.env.REACT_APP_BACKEND_URL}${img.startsWith("/") ? "" : "/"}${img}`;
   };
 
   // Load cart items
   const loadCart = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/api/cart`, {
+      const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/cart`, {
         withCredentials: true,
       });
       const validItems = res.data.filter(
@@ -50,7 +49,7 @@ export default function Cart() {
 
     try {
       await axios.put(
-        `${BASE_URL}/api/cart/${id}`,
+        `${process.env.REACT_APP_BACKEND_URL}/api/cart/${id}`,
         { quantity },
         { withCredentials: true }
       );
@@ -63,7 +62,7 @@ export default function Cart() {
   // Remove item
   const removeItem = async (id) => {
     try {
-      await axios.delete(`${BASE_URL}/api/cart/${id}`, {
+      await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/api/cart/${id}`, {
         withCredentials: true,
       });
       const updatedItems = items.filter((item) => item._id !== id);
@@ -83,7 +82,7 @@ export default function Cart() {
       });
 
       // Remove item from cart immediately
-      await axios.delete(`${BASE_URL}/api/cart/${item._id}`, {
+      await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/api/cart/${item._id}`, {
         withCredentials: true,
       });
 

@@ -15,7 +15,7 @@ export default function ProductList() {
         setLoading(true);
         setError("");
 
-        const res = await fetch("http://localhost:9000/api/products");
+        const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/products`);
         const data = await res.json();
 
         if (!res.ok) throw new Error(data.message || "Failed to load products");

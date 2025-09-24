@@ -20,26 +20,34 @@ connectDB();
 
 const app = express();
 
+// Get __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 // Middleware
+app.use(express.json());
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+// ✅ CORS configuration
+const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
+
 app.use(cors({
-  origin: "http://localhost:3000", // frontend origin
-  credentials: true // allow sending cookies
+  origin: FRONTEND_URL,  // must match frontend domain
+  credentials: true       // allow cookies
 }));
 
-app.use(express.json());
-
-// ✅ Session middleware
+// ✅ Session configuration
 app.use(session({
   secret: process.env.SESSION_SECRET || "secret123",
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: false } // secure: true only with HTTPS
+  cookie: {
+    secure: process.env.NODE_ENV === "production", // HTTPS only in production
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    httpOnly: true, // cookie not accessible via JS
+    maxAge: 1000 * 60 * 60 * 24 // 1 day
+  }
 }));
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Routes
 app.use("/api/address", addressRoutes);
@@ -53,5 +61,6 @@ app.get("/", (req, res) => {
   res.send("API is running...");
 });
 
+// Start server
 const PORT = process.env.PORT || 9000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));

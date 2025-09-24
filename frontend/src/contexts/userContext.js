@@ -7,11 +7,9 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [cart, setCart] = useState([]);
 
-  const BASE_URL = "http://localhost:9000";
-
   const fetchUser = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/api/auth/me`, {
+      const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/auth/me`, {
         withCredentials: true,
       });
       setUser(res.data || null);

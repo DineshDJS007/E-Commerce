@@ -25,14 +25,13 @@ export default function Address() {
     type: "Home",
   });
 
-  const BASE_URL = "http://localhost:9000";
   const navigate = useNavigate();
 
   // Load saved addresses
   useEffect(() => {
     const load = async () => {
       try {
-        const res = await axios.get(`${BASE_URL}/api/address/`, {
+        const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/address/`, {
           withCredentials: true,
         });
         setAddresses(res.data || []);
@@ -48,14 +47,14 @@ export default function Address() {
     e.preventDefault();
     try {
       if (isEditing && editId) {
-        const res = await axios.put(`${BASE_URL}/api/address/${editId}`, form, {
+        const res = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/address/${editId}`, form, {
           withCredentials: true,
         });
         setAddresses(addresses.map((a) => (a._id === editId ? res.data : a)));
         setIsEditing(false);
         setEditId(null);
       } else {
-        const res = await axios.post(`${BASE_URL}/api/address/`, form, {
+        const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/address/`, form, {
           withCredentials: true,
         });
         setAddresses([...addresses, res.data]);
@@ -82,7 +81,7 @@ export default function Address() {
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this address?")) return;
     try {
-      await axios.delete(`${BASE_URL}/api/address/${id}`, {
+      await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/api/address/${id}`, {
         withCredentials: true,
       });
       setAddresses(addresses.filter((a) => a._id !== id));

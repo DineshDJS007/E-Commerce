@@ -29,19 +29,18 @@ export default function ProfilePage() {
   const [showAddressForm, setShowAddressForm] = useState(false);
 
   const navigate = useNavigate();
-  const BASE_URL = "http://localhost:9000";
 
   const normalizeImage = (img) => {
     if (!img) return "https://via.placeholder.com/150";
     return img.startsWith("http")
       ? img
-      : `${BASE_URL}${img.startsWith("/") ? "" : "/"}${img}`;
+      : `${process.env.REACT_APP_BACKEND_URL}${img.startsWith("/") ? "" : "/"}${img}`;
   };
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get(`${BASE_URL}/api/auth/me`, {
+        const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/auth/me`, {
           withCredentials: true,
         });
         setUser(res.data); // Update context
@@ -60,7 +59,7 @@ export default function ProfilePage() {
     const loadOrders = async () => {
       try {
         setLoading(true);
-        const resOrders = await axios.get(`${BASE_URL}/api/orders/my`, {
+        const resOrders = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/orders/my`, {
           withCredentials: true,
         });
 
@@ -101,7 +100,7 @@ export default function ProfilePage() {
 
     const loadAddresses = async () => {
       try {
-        const res = await axios.get(`${BASE_URL}/api/address/`, {
+        const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/address/`, {
           withCredentials: true,
         });
         setAddresses(res.data || []);
@@ -116,7 +115,7 @@ export default function ProfilePage() {
   const handleProfileUpdate = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.put(`${BASE_URL}/api/auth/profile`, form, {
+      const { data } = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/auth/profile`, form, {
         withCredentials: true,
       });
       setUser(data); // Update context
@@ -129,7 +128,7 @@ export default function ProfilePage() {
   const handleLogout = async () => {
     try {
       await axios.post(
-        `${BASE_URL}/api/auth/logout`,
+        `${process.env.REACT_APP_BACKEND_URL}/api/auth/logout`,
         {},
         { withCredentials: true }
       );
@@ -142,7 +141,7 @@ export default function ProfilePage() {
     if (!window.confirm("Are you sure you want to cancel this order?")) return;
     try {
       await axios.put(
-        `${BASE_URL}/api/orders/${orderId}/cancel`,
+        `${process.env.REACT_APP_BACKEND_URL}/api/orders/${orderId}/cancel`,
         {},
         { withCredentials: true }
       );
@@ -161,13 +160,13 @@ export default function ProfilePage() {
     try {
       if (isEditing && editId) {
         const res = await axios.put(
-          `${BASE_URL}/api/address/${editId}`,
+          `${process.env.REACT_APP_BACKEND_URL}/api/address/${editId}`,
           addressForm,
           { withCredentials: true }
         );
         setAddresses(addresses.map((a) => (a._id === editId ? res.data : a)));
       } else {
-        const res = await axios.post(`${BASE_URL}/api/address/`, addressForm, {
+        const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/address/`, addressForm, {
           withCredentials: true,
         });
         setAddresses([...addresses, res.data]);
@@ -195,7 +194,7 @@ export default function ProfilePage() {
   const handleDeleteAddress = async (id) => {
     if (!window.confirm("Delete this address?")) return;
     try {
-      await axios.delete(`${BASE_URL}/api/address/${id}`, {
+      await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/api/address/${id}`, {
         withCredentials: true,
       });
       setAddresses(addresses.filter((a) => a._id !== id));

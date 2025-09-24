@@ -6,7 +6,7 @@ import "../styles/Payment.css";
 export default function Payment() {
   const { state } = useLocation();
   const navigate = useNavigate();
-  const BASE_URL = "http://localhost:9000";
+
 
   const product = state?.product;
   const address = state?.address;
@@ -83,7 +83,7 @@ export default function Payment() {
         paymentDetails
       };
 
-      await axios.post(`${BASE_URL}/api/orders/`, payload, {
+      await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/orders/`, payload, {
         withCredentials: true
       });
       navigate("/success");

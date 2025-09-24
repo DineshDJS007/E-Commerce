@@ -3,12 +3,11 @@ import { Link } from "react-router-dom";
 import "../styles/ProductCart.css";
 
 function ProductCard({ product }) {
-  const BASE_URL = "http://localhost:9000";
 
   // Normalize image URL
   const normalizeImage = (img) => {
     if (!img) return "";
-    return img.startsWith("http") ? img : `${BASE_URL}${img.startsWith("/") ? "" : "/"}${img}`;
+    return img.startsWith("http") ? img : `${process.env.REACT_APP_BACKEND_URL}${img.startsWith("/") ? "" : "/"}${img}`;
   };
 
   return (

@@ -8,17 +8,16 @@ export default function ManageOrders() {
   const [rows, setRows] = useState([]);
   const [filteredRows, setFilteredRows] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const BASE_URL = "http://localhost:9000";
 
   const normalizeImage = (img) => {
     if (!img) return "https://via.placeholder.com/150";
     return img.startsWith("http")
       ? img
-      : `${BASE_URL}${img.startsWith("/") ? "" : "/"}${img}`;
+      : `${process.env.REACT_APP_BACKEND_URL}${img.startsWith("/") ? "" : "/"}${img}`;
   };
 
   const load = async () => {
-    const res = await fetch("http://localhost:9000/api/orders/admin", {
+    const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/orders/admin`, {
       credentials: "include",
     });
     const data = await res.json();

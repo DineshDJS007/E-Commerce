@@ -12,19 +12,18 @@ export default function ProductDetails() {
   const [adding, setAdding] = useState(false);
   const [error, setError] = useState("");
   const [msg, setMsg] = useState("");
-  const BASE_URL = "http://localhost:9000";
 
   useEffect(() => {
     const load = async () => {
       try {
         setLoading(true);
         setError("");
-        const res = await fetch(`${BASE_URL}/api/products/${id}`);
+        const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/products/${id}`);
         const data = await res.json();
         if (!res.ok) throw new Error(data.message || "Product not found");
         let imgUrl = data.image;
         if (!imgUrl) imgUrl = "https://via.placeholder.com/400x400?text=No+Image";
-        else if (!imgUrl.startsWith("http")) imgUrl = `${BASE_URL}${imgUrl.startsWith("/") ? "" : "/"}${imgUrl}`;
+        else if (!imgUrl.startsWith("http")) imgUrl = `${process.env.REACT_APP_BACKEND_URL}${imgUrl.startsWith("/") ? "" : "/"}${imgUrl}`;
         setProduct({ ...data, id: data._id, image: imgUrl });
       } catch (e) {
         setError(e.message);
@@ -46,7 +45,7 @@ export default function ProductDetails() {
         return;
       }
 
-      const res = await fetch(`${BASE_URL}/api/cart/add`, {
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/cart/add`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

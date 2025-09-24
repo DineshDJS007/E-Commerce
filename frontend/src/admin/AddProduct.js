@@ -8,7 +8,7 @@ export default function AddOrEditProduct() {
   const nav = useNavigate();
   const location = useLocation();
   const id = location.state?.id;
-  const BASE_URL = "http://localhost:9000";
+ 
 
   const [form, setForm] = useState({
     name: "",
@@ -28,7 +28,7 @@ export default function AddOrEditProduct() {
 
     (async () => {
       try {
-        const res = await fetch(`${BASE_URL}/api/products/${id}`);
+        const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/products/${id}`);
         if (!res.ok) throw new Error("Failed to load product");
         const data = await res.json();
 
@@ -69,7 +69,7 @@ export default function AddOrEditProduct() {
       formData.append("description", form.description);
       if (image) formData.append("image", image);
 
-      const url = id ? `${BASE_URL}/api/products/${id}` : `${BASE_URL}/api/products`;
+      const url = id ? `${process.env.REACT_APP_BACKEND_URL}/api/products/${id}` : `${process.env.REACT_APP_BACKEND_URL}/api/products`;
       const method = id ? "PUT" : "POST";
 
       const res = await fetch(url, { method, body: formData });
