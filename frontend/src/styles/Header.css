@@ -83,7 +83,7 @@
   /* Mobile cart badge adjustment */
   .nav-item.position-relative .badge {
     top: 0;
-    right: 295px;
+    right: 380px;
     transform: translateX(50%);
     font-size: 0.6rem;
     padding: 0.25em 0.4em;

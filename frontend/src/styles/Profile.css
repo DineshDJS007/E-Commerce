@@ -172,12 +172,11 @@
   background: #fff;
   border-radius: 10px;
   padding: 12px 15px;
-  width: 65%; /* desktop width */
+  width: 100%;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  flex-direction: column; /* stack content & buttons */
+  gap: 10px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  position: relative;
 }
 
 .address-card p {
@@ -186,16 +185,16 @@
   color: #6c757d;
 }
 
-/* Buttons aligned to right */
+/* Buttons below content */
 .address-btn {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-left: 60%; /* push to right */
+  gap: 10px;
+  flex-wrap: wrap; /* wrap if container is narrow */
 }
 
 .address-btn button {
   min-width: 80px;
+  flex: 1; /* equal width on smaller screens */
 }
 
 /* ---------------- Address Form ---------------- */
@@ -255,20 +254,16 @@
   }
 
   .address-card {
-    width: 100%;
     flex-direction: column;
-    align-items: flex-start;
   }
 
   .address-btn {
-    flex-direction: row; /* buttons side by side */
+    flex-direction: row;
     gap: 10px;
-    margin-top: 10px;
-    margin-left: 0;
   }
 
   .address-btn button {
-    flex: 1; /* equal width on mobile/tablet */
+    flex: 1; /* equal width */
   }
 }
 
@@ -287,13 +282,18 @@
     gap: 5px;
   }
 
-  .address-form input,
-  .address-form select {
-    width: 100%;
+  .address-card {
+    flex-direction: column; /* stack content and buttons */
   }
 
   .address-btn {
-    flex-direction: column;
+    flex-direction: column; /* buttons stacked under content */
     gap: 8px;
+    margin-top: 8px; /* space below address details */
+  }
+
+  .address-btn button {
+    width: 100%; /* full width on small screens */
+    min-width: auto;
   }
 }

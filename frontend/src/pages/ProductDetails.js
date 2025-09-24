@@ -21,9 +21,17 @@ export default function ProductDetails() {
         const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/products/${id}`);
         const data = await res.json();
         if (!res.ok) throw new Error(data.message || "Product not found");
+
+        // ✅ Handle image fallback
         let imgUrl = data.image;
-        if (!imgUrl) imgUrl = "https://via.placeholder.com/400x400?text=No+Image";
-        else if (!imgUrl.startsWith("http")) imgUrl = `${process.env.REACT_APP_BACKEND_URL}${imgUrl.startsWith("/") ? "" : "/"}${imgUrl}`;
+        if (!imgUrl) {
+          imgUrl = "/no-image.png"; // local fallback
+        } else if (!imgUrl.startsWith("http")) {
+          imgUrl = `${process.env.REACT_APP_BACKEND_URL}${
+            imgUrl.startsWith("/") ? "" : "/"
+          }${imgUrl}`;
+        }
+
         setProduct({ ...data, id: data._id, image: imgUrl });
       } catch (e) {
         setError(e.message);
@@ -61,7 +69,6 @@ export default function ProductDetails() {
       }
 
       setMsg("Added to cart");
-      // Update cart in context
       setCart([...cart, { ...product, quantity: 1 }]);
     } catch (e) {
       setError(e.message);
@@ -70,19 +77,15 @@ export default function ProductDetails() {
     }
   };
 
-  const handleBuyNow = async () => {
+  const handleBuyNow = () => {
     if (!product) return;
-    try {
-      setMsg("");
-      setError("");
-      if (!user) {
-        setError("You must be logged in to buy a product.");
-        return;
-      }
-      navigate("/address", { state: { product: { ...product, qty: 1 } } });
-    } catch (e) {
-      setError(e.message);
+    setMsg("");
+    setError("");
+    if (!user) {
+      setError("You must be logged in to buy a product.");
+      return;
     }
+    navigate("/address", { state: { product: { ...product, qty: 1 } } });
   };
 
   if (loading) return <p>Loading…</p>;
@@ -97,16 +100,20 @@ export default function ProductDetails() {
             src={product.image}
             alt={product.name}
             className="img-fluid"
-            onError={(e) => (e.target.src = "https://via.placeholder.com/400x400?text=No+Image")}
+            onError={(e) => (e.target.src = "/no-image.png")} // local fallback
           />
         </div>
         <div className="col-md-7">
           <h2 className="fw-bold">{product.name}</h2>
-          <p className="text-muted mb-1"><strong>Category:</strong> {product.category}</p>
+          <p className="text-muted mb-1">
+            <strong>Category:</strong> {product.category}
+          </p>
           <h3 className="text-primary mb-3">₹{product.price}</h3>
           <p className="mb-4">{product.description || "No additional description available."}</p>
+
           {msg && <div className="alert alert-success py-2">{msg}</div>}
           {error && <div className="alert alert-danger py-2">{error}</div>}
+
           <div className="d-flex gap-2">
             <button className="btn btn-success w-50" onClick={handleAddToCart} disabled={adding}>
               {adding ? "Adding…" : "🛒 Add to Cart"}
