@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/Cart.css";
+import { UserContext } from "../contexts/userContext";
 
 export default function Cart() {
   const [items, setItems] = useState([]);
+  const { cart, setCart } = useContext(UserContext); // context for cart count
   const BASE_URL = "http://localhost:9000";
   const navigate = useNavigate();
 
@@ -26,6 +28,7 @@ export default function Cart() {
         (i) => i.productId && typeof i.productId.price === "number"
       );
       setItems(validItems);
+      setCart(validItems); // update context cart
     } catch (err) {
       console.error("Error fetching cart:", err);
     }
@@ -39,6 +42,9 @@ export default function Cart() {
   const updateQty = async (id, quantity) => {
     if (quantity < 1) return;
     setItems((prev) =>
+      prev.map((item) => (item._id === id ? { ...item, quantity } : item))
+    );
+    setCart((prev) =>
       prev.map((item) => (item._id === id ? { ...item, quantity } : item))
     );
 
@@ -60,17 +66,33 @@ export default function Cart() {
       await axios.delete(`${BASE_URL}/api/cart/${id}`, {
         withCredentials: true,
       });
-      setItems((prev) => prev.filter((item) => item._id !== id));
+      const updatedItems = items.filter((item) => item._id !== id);
+      setItems(updatedItems);
+      setCart(updatedItems); // update context cart so header count decreases
     } catch (err) {
       console.error("Error removing item:", err);
     }
   };
 
   // Buy Now
-  const handleBuyNow = (item) => {
-    navigate("/address", {
-      state: { product: { ...item.productId, qty: item.quantity } },
-    });
+  const handleBuyNow = async (item) => {
+    try {
+      // Navigate to address page with the selected product
+      navigate("/address", {
+        state: { product: { ...item.productId, qty: item.quantity } },
+      });
+
+      // Remove item from cart immediately
+      await axios.delete(`${BASE_URL}/api/cart/${item._id}`, {
+        withCredentials: true,
+      });
+
+      const updatedItems = items.filter((i) => i._id !== item._id);
+      setItems(updatedItems);
+      setCart(updatedItems); // Update context for header
+    } catch (err) {
+      console.error("Error processing Buy Now:", err);
+    }
   };
 
   // Total price
@@ -147,6 +169,10 @@ export default function Cart() {
           </div>
         </div>
       ))}
+
+      <div className="cart-total text-end mt-4">
+        <h5>Total: ₹{totalPrice.toFixed(2)}</h5>
+      </div>
     </div>
   );
 }

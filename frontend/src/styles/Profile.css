@@ -22,7 +22,7 @@
   margin-bottom: 15px;
 }
 
-.btn-tab {
+.sidebar .btn-tab {
   background: none;
   border: none;
   color: #fff;
@@ -33,12 +33,11 @@
   transition: background 0.3s;
 }
 
-.btn-tab:hover,
-.btn-tab.active {
+.sidebar .btn-tab:hover,
+.sidebar .btn-tab.active {
   background-color: #495057;
 }
 
-/* Logout button */
 .sidebar .btn-outline-danger {
   margin-top: 10px;
 }
@@ -49,7 +48,16 @@
   padding: 25px;
 }
 
-/* ---------------- Overview Cards ---------------- */
+/* ---------------- Overview ---------------- */
+.overview {
+  margin-top: 10px;
+}
+
+.overview h2 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
 .overview-cards {
   display: flex;
   flex-wrap: wrap;
@@ -152,15 +160,24 @@
 }
 
 /* ---------------- Address Management ---------------- */
+.address-management {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 15px;
+  margin-top: 10px;
+}
+
 .address-card {
   background: #fff;
   border-radius: 10px;
   padding: 12px 15px;
-  margin-bottom: 10px;
+  width: 65%; /* desktop width */
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  position: relative;
 }
 
 .address-card p {
@@ -169,11 +186,25 @@
   color: #6c757d;
 }
 
+/* Buttons aligned to right */
+.address-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-left: 60%; /* push to right */
+}
+
+.address-btn button {
+  min-width: 80px;
+}
+
+/* ---------------- Address Form ---------------- */
 .address-form {
   margin-top: 15px;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 100%;
 }
 
 .address-form input,
@@ -210,19 +241,34 @@
 
   .sidebar {
     width: 100%;
-    flex-direction: row;
-    overflow-x: auto;
-    padding: 10px;
-    gap: 10px;
+    flex-direction: column;
+    padding: 15px;
+    gap: 8px;
   }
 
-  .btn-tab {
-    flex: 1 0 auto;
-    text-align: center;
+  .sidebar .btn-tab {
+    text-align: left;
   }
 
   .overview-cards {
     flex-direction: column;
+  }
+
+  .address-card {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .address-btn {
+    flex-direction: row; /* buttons side by side */
+    gap: 10px;
+    margin-top: 10px;
+    margin-left: 0;
+  }
+
+  .address-btn button {
+    flex: 1; /* equal width on mobile/tablet */
   }
 }
 
@@ -244,5 +290,10 @@
   .address-form input,
   .address-form select {
     width: 100%;
+  }
+
+  .address-btn {
+    flex-direction: column;
+    gap: 8px;
   }
 }

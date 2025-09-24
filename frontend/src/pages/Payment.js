@@ -25,8 +25,13 @@ export default function Payment() {
   if (!product || !address || !totals) {
     return (
       <div className="container my-4">
-        <p className="text-danger">⚠️ Payment details missing. Please go back to order summary.</p>
-        <button className="btn btn-primary" onClick={() => navigate("/ordersummary")}>
+        <p className="text-danger">
+          ⚠️ Payment details missing. Please go back to order summary.
+        </p>
+        <button
+          className="btn btn-primary"
+          onClick={() => navigate("/ordersummary")}
+        >
           Go Back
         </button>
       </div>
@@ -48,7 +53,10 @@ export default function Payment() {
         paymentDetails = { upiId: selectedUPI };
       } else if (method === "Credit/Debit Card") {
         paymentMethod = "Card";
-        paymentDetails = { cardNumber: cardDetails.cardNumber, bankName: "Card Payment" };
+        paymentDetails = {
+          cardNumber: cardDetails.cardNumber,
+          bankName: "Card Payment"
+        };
       } else if (method === "Net Banking") {
         paymentMethod = "NetBanking";
         paymentDetails = { bankName: selectedBank };
@@ -61,21 +69,23 @@ export default function Payment() {
           {
             productId: product._id,
             quantity: product.qty || 1,
-            price: product.price,
-          },
+            price: product.price
+          }
         ],
         totals: {
           subtotal: product.price,
           tax: gstAmount,
           shipping: deliveryCharge,
-          total: finalTotal,
+          total: finalTotal
         },
         addressId: address._id,
         paymentMethod,
-        paymentDetails,
+        paymentDetails
       };
 
-      await axios.post(`${BASE_URL}/api/orders/`, payload, { withCredentials: true });
+      await axios.post(`${BASE_URL}/api/orders/`, payload, {
+        withCredentials: true
+      });
       navigate("/success");
     } catch (err) {
       console.error(err);
@@ -86,14 +96,43 @@ export default function Payment() {
   return (
     <div className="payment-container my-4">
       <div className="row g-4">
+        {/* Price Summary - first on mobile */}
+        <div className="col-lg-5 order-1 order-lg-2">
+          <div className="card p-3">
+            <h6>Price Details</h6>
+            <hr />
+            <p>
+              Price ({product.qty || 1} item{product.qty > 1 ? "s" : ""}): ₹
+              {product.price}
+            </p>
+            <p>GST (18%): ₹{gstAmount}</p>
+            <p>Delivery Charges: ₹{deliveryCharge}</p>
+            <hr />
+            <p>
+              <strong>Final Total: ₹{finalTotal}</strong>
+            </p>
+          </div>
+        </div>
+
         {/* Payment Options */}
-        <div className="col-lg-7">
+        <div className="col-lg-7 order-2 order-lg-1">
           <h5 className="mb-3">Select Payment Method</h5>
           <div className="card p-3 mb-3">
             <h6>Payment Type</h6>
-            <select className="form-select mt-2" value={method} onChange={(e) => setMethod(e.target.value)}>
-              {["UPI", "Credit/Debit Card", "Net Banking", "Cash on Delivery"].map((opt) => (
-                <option key={opt} value={opt}>{opt}</option>
+            <select
+              className="form-select mt-2"
+              value={method}
+              onChange={(e) => setMethod(e.target.value)}
+            >
+              {[
+                "UPI",
+                "Credit/Debit Card",
+                "Net Banking",
+                "Cash on Delivery"
+              ].map((opt) => (
+                <option key={opt} value={opt}>
+                  {opt}
+                </option>
               ))}
             </select>
 
@@ -101,9 +140,21 @@ export default function Payment() {
               {method === "UPI" && (
                 <>
                   <h6>Choose UPI App</h6>
-                  <select className="form-select mt-2" value={selectedUPI} onChange={(e) => setSelectedUPI(e.target.value)}>
-                    {["Google Pay", "PhonePe", "Paytm", "Amazon Pay", "CRED"].map((upi) => (
-                      <option key={upi} value={upi}>{upi}</option>
+                  <select
+                    className="form-select mt-2"
+                    value={selectedUPI}
+                    onChange={(e) => setSelectedUPI(e.target.value)}
+                  >
+                    {[
+                      "Google Pay",
+                      "PhonePe",
+                      "Paytm",
+                      "Amazon Pay",
+                      "CRED"
+                    ].map((upi) => (
+                      <option key={upi} value={upi}>
+                        {upi}
+                      </option>
                     ))}
                   </select>
                 </>
@@ -116,7 +167,12 @@ export default function Payment() {
                     className="form-control mb-2"
                     placeholder="Card Number"
                     value={cardDetails.cardNumber}
-                    onChange={(e) => setCardDetails({ ...cardDetails, cardNumber: e.target.value })}
+                    onChange={(e) =>
+                      setCardDetails({
+                        ...cardDetails,
+                        cardNumber: e.target.value
+                      })
+                    }
                   />
                   <div className="row mb-2">
                     <div className="col">
@@ -125,7 +181,12 @@ export default function Payment() {
                         className="form-control"
                         placeholder="MM/YY"
                         value={cardDetails.expiry}
-                        onChange={(e) => setCardDetails({ ...cardDetails, expiry: e.target.value })}
+                        onChange={(e) =>
+                          setCardDetails({
+                            ...cardDetails,
+                            expiry: e.target.value
+                          })
+                        }
                       />
                     </div>
                     <div className="col">
@@ -134,7 +195,12 @@ export default function Payment() {
                         className="form-control"
                         placeholder="CVV"
                         value={cardDetails.cvv}
-                        onChange={(e) => setCardDetails({ ...cardDetails, cvv: e.target.value })}
+                        onChange={(e) =>
+                          setCardDetails({
+                            ...cardDetails,
+                            cvv: e.target.value
+                          })
+                        }
                       />
                     </div>
                   </div>
@@ -143,7 +209,12 @@ export default function Payment() {
                     className="form-control"
                     placeholder="Cardholder Name"
                     value={cardDetails.name}
-                    onChange={(e) => setCardDetails({ ...cardDetails, name: e.target.value })}
+                    onChange={(e) =>
+                      setCardDetails({
+                        ...cardDetails,
+                        name: e.target.value
+                      })
+                    }
                   />
                 </div>
               )}
@@ -151,9 +222,15 @@ export default function Payment() {
               {method === "Net Banking" && (
                 <>
                   <h6>Select Bank</h6>
-                  <select className="form-select mt-2" value={selectedBank} onChange={(e) => setSelectedBank(e.target.value)}>
+                  <select
+                    className="form-select mt-2"
+                    value={selectedBank}
+                    onChange={(e) => setSelectedBank(e.target.value)}
+                  >
                     {["HDFC", "ICICI", "SBI", "Axis", "Kotak"].map((bank) => (
-                      <option key={bank} value={bank}>{bank}</option>
+                      <option key={bank} value={bank}>
+                        {bank}
+                      </option>
                     ))}
                   </select>
                 </>
@@ -168,19 +245,6 @@ export default function Payment() {
           <button className="btn btn-warning w-100 mt-3" onClick={handlePay}>
             Pay ₹{finalTotal}
           </button>
-        </div>
-
-        {/* Price Summary */}
-        <div className="col-lg-5">
-          <div className="card p-3">
-            <h6>Price Details</h6>
-            <hr />
-            <p>Price ({product.qty || 1} item{product.qty > 1 ? "s" : ""}): ₹{product.price}</p>
-            <p>GST (18%): ₹{gstAmount}</p>
-            <p>Delivery Charges: ₹{deliveryCharge}</p>
-            <hr />
-            <p><strong>Final Total: ₹{finalTotal}</strong></p>
-          </div>
         </div>
       </div>
     </div>

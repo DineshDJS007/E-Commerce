@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from "react-route
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
+import { UserProvider } from "./contexts/userContext"; // import context
+
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
@@ -26,14 +28,12 @@ import ManageProducts from "./admin/ManageProducts";
 import AddProduct from "./admin/AddProduct";
 import ManageOrders from "./admin/ManageOrders";
 
-
-
 function AppContent() {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith("/admin");
 
   return (
-    <>
+    <UserProvider> {/* Wrap the content with UserProvider */}
       {!isAdminRoute ? (
         <>
           <Header />
@@ -74,7 +74,7 @@ function AppContent() {
           <Route path="/admin/orders" element={<ManageOrders />} />
         </Routes>
       )}
-    </>
+    </UserProvider>
   );
 }
 

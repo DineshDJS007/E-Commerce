@@ -1,53 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import "../styles/Header.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import React, { useContext } from "react"; 
+import { Link, useNavigate } from "react-router-dom"; 
+import "../styles/Header.css"; 
+import "bootstrap/dist/css/bootstrap.min.css"; 
+import "bootstrap/dist/js/bootstrap.bundle.min.js"; 
 import { FaHome, FaShoppingCart, FaUserCircle, FaSignInAlt, FaStore } from "react-icons/fa";
+import { UserContext } from "../contexts/userContext";
 
 function Header() {
-  const [user, setUser] = useState(null);
-  const [cart, setCart] = useState([]);
+  const { user, cart } = useContext(UserContext); // Access user and cart
   const navigate = useNavigate();
-  const BASE_URL = "http://localhost:9000";
-
-  const fetchUser = async () => {
-    try {
-      const res = await axios.get(`${BASE_URL}/api/auth/me`, {
-        withCredentials: true,
-      });
-      if (res.data) {
-        setUser(res.data);
-        setCart(res.data.cart || []);
-      } else {
-        setUser(null);
-        setCart([]);
-      }
-    } catch {
-      setUser(null);
-      setCart([]);
-    }
-  };
-
-  const handleLogout = async () => {
-    try {
-      await axios.post(
-        `${BASE_URL}/api/auth/logout`,
-        {},
-        { withCredentials: true }
-      );
-      setUser(null);
-      setCart([]);
-      navigate("/login");
-    } catch (err) {
-      console.error("Logout failed", err);
-    }
-  };
-
-  useEffect(() => {
-    fetchUser();
-  }, []);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark header-navbar">
@@ -71,31 +32,31 @@ function Header() {
                 <FaHome className="me-1" /> Home
               </Link>
             </li>
+
             <li className="nav-item">
               <Link className="nav-link d-flex align-items-center" to="/products">
                 <FaStore className="me-1" /> Shop
               </Link>
             </li>
+
             <li className="nav-item position-relative">
               <Link className="nav-link d-flex align-items-center" to="/cart">
                 <FaShoppingCart className="me-1" /> Cart
-                {cart.length > 0 && (
-                  <span className="badge bg-danger ms-1">{cart.length}</span>
+                {cart && cart.length > 0 && (
+                  <span className="badge ms-1">{cart.length}</span>
                 )}
               </Link>
             </li>
 
             {user ? (
-              <>
-                <li className="nav-item">
-                  <Link
-                    className="nav-link d-flex align-items-center text-warning"
-                    to="/profile"
-                  >
-                    <FaUserCircle className="me-1" /> {user.name || user.email}
-                  </Link>
-                </li>
-              </>
+              <li className="nav-item">
+                <Link
+                  className="nav-link d-flex align-items-center text-warning"
+                  to="/profile"
+                >
+                  <FaUserCircle className="me-1" /> {user.name || user.email}
+                </Link>
+              </li>
             ) : (
               <li className="nav-item">
                 <Link

@@ -29,7 +29,18 @@
 }
 
 /* ---------------- Form Inputs ---------------- */
-.payment-container .form-control,
+.payment-container .form-control {
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.95rem;
+  margin-bottom: 10px;
+  border: 1px solid #ced4da;
+  transition: all 0.2s ease;
+  width: 100%;          /* inputs wider */
+  min-width: 220px;
+  display: inline-block;
+}
+
 .payment-container .form-select {
   border-radius: 8px;
   padding: 8px 12px;
@@ -37,6 +48,9 @@
   margin-bottom: 10px;
   border: 1px solid #ced4da;
   transition: all 0.2s ease;
+  width: 100%;          /* dropdowns narrower */
+  min-width: 180px;
+  display: inline-block;
 }
 
 .payment-container .form-control:focus,
@@ -96,6 +110,17 @@
   .payment-container .col-lg-7,
   .payment-container .col-lg-5 {
     max-width: 100%;
+  }
+
+  .payment-container .form-control{
+    width: 100%; 
+    min-width: unset;
+    display: inline-block;
+  }
+  .payment-container .form-select {
+    width: 320px; 
+    min-width: unset;
+    display: inline-block;
   }
 
   .payment-container .btn-warning {

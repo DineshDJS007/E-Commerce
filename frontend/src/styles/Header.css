@@ -1,4 +1,4 @@
-/* Header Navbar */
+/* ---------------- Header Navbar ---------------- */
 .header-navbar {
   background-color: #01016c;
   padding: 0.5rem 1rem;
@@ -22,27 +22,27 @@
   transition: color 0.2s, transform 0.2s;
 }
 
-.nav-link:hover {
-  color: #ffc107 !important;
-  transform: scale(1.05);
-}
-
 /* Active User Link */
 .nav-link.text-warning {
   font-weight: 500;
 }
 
-/* Cart Badge */
+/* ---------------- Cart Badge ---------------- */
 .nav-item.position-relative .badge {
   position: absolute;
-  top: -5px;
-  right: -10px;
-  font-size: 0.65rem;
+  top: -6px;       /* slightly above icon */
+  right: 50px;        /* aligned to the right edge of icon */
+  transform: translateX(50%); /* center over icon */
+  font-size: 0.75rem;
   font-weight: bold;
-  padding: 0.25em 0.4em;
+  padding: 0.35em 0.5em;
   border-radius: 50%;
-  background-color: #ff4d4d;
+  background-color: #6b4dff;
   color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 1;
 }
 
 /* Buttons (if used) */
@@ -58,7 +58,7 @@
   color: #01016c;
 }
 
-/* Responsive adjustments */
+/* ---------------- Responsive adjustments ---------------- */
 @media (max-width: 992px) {
   .navbar-nav .nav-link {
     margin: 0.3rem 0;
@@ -78,5 +78,14 @@
   .btn-outline-light {
     margin: 0.3rem 0;
     width: 100%;
+  }
+
+  /* Mobile cart badge adjustment */
+  .nav-item.position-relative .badge {
+    top: 0;
+    right: 295px;
+    transform: translateX(50%);
+    font-size: 0.6rem;
+    padding: 0.25em 0.4em;
   }
 }

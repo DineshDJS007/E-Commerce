@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../styles/Profile.css";
+import { UserContext } from "../contexts/userContext";
 
 export default function ProfilePage() {
-  const [user, setUser] = useState(null);
+  const { user, setUser } = useContext(UserContext); // Access user from context
   const [orders, setOrders] = useState([]);
   const [addresses, setAddresses] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -43,7 +44,7 @@ export default function ProfilePage() {
         const res = await axios.get(`${BASE_URL}/api/auth/me`, {
           withCredentials: true,
         });
-        setUser(res.data);
+        setUser(res.data); // Update context
         setForm({
           name: res.data.name || "",
           email: res.data.email || "",
@@ -110,7 +111,7 @@ export default function ProfilePage() {
     };
 
     fetchUser();
-  }, [navigate]);
+  }, [navigate, setUser]);
 
   const handleProfileUpdate = async (e) => {
     e.preventDefault();
@@ -118,7 +119,7 @@ export default function ProfilePage() {
       const { data } = await axios.put(`${BASE_URL}/api/auth/profile`, form, {
         withCredentials: true,
       });
-      setUser(data);
+      setUser(data); // Update context
       alert("Profile updated successfully");
     } catch {
       alert("Update failed");
@@ -132,13 +133,13 @@ export default function ProfilePage() {
         {},
         { withCredentials: true }
       );
-      navigate("/login");
-    } catch { }
+      setUser(null); // Clear context
+      navigate("/");
+    } catch {}
   };
 
   const handleCancelOrder = async (orderId) => {
-    if (!window.confirm("Are you sure you want to cancel this order?"))
-      return;
+    if (!window.confirm("Are you sure you want to cancel this order?")) return;
     try {
       await axios.put(
         `${BASE_URL}/api/orders/${orderId}/cancel`,
@@ -162,19 +163,13 @@ export default function ProfilePage() {
         const res = await axios.put(
           `${BASE_URL}/api/address/${editId}`,
           addressForm,
-          {
-            withCredentials: true,
-          }
+          { withCredentials: true }
         );
         setAddresses(addresses.map((a) => (a._id === editId ? res.data : a)));
       } else {
-        const res = await axios.post(
-          `${BASE_URL}/api/address/`,
-          addressForm,
-          {
-            withCredentials: true,
-          }
-        );
+        const res = await axios.post(`${BASE_URL}/api/address/`, addressForm, {
+          withCredentials: true,
+        });
         setAddresses([...addresses, res.data]);
       }
       setAddressForm({
@@ -279,15 +274,9 @@ export default function ProfilePage() {
             <div className="overview-cards">
               <div className="card">
                 <h5>User Info</h5>
-                <p>
-                  <strong>Name:</strong> {user.name}
-                </p>
-                <p>
-                  <strong>Email:</strong> {user.email}
-                </p>
-                <p>
-                  <strong>Mobile No:</strong> {user.mobile}
-                </p>
+                <p><strong>Name:</strong> {user.name}</p>
+                <p><strong>Email:</strong> {user.email}</p>
+                <p><strong>Mobile No:</strong> {user.mobile}</p>
               </div>
 
               <div className="card">
@@ -301,18 +290,14 @@ export default function ProfilePage() {
                           alt={item.productId?.name || "Product Image"}
                           className="order-img"
                         />
-
                         <div>
                           <h6>{item.productId?.name}</h6>
                           <small>₹{item.price.toFixed(2)}</small> <br />
                           <small>Qty: {item.quantity}</small> <br />
                           <small>
-                            Ordered on{" "}
-                            {new Date(orders[0].createdAt).toLocaleDateString()}
+                            Ordered on {new Date(orders[0].createdAt).toLocaleDateString()}
                           </small>
-
                           {renderProgress(orders[0].status)}
-
                           {orders[0].status === "Delivered" && (
                             <button
                               className="btn btn-outline-success btn-sm mt-1"
@@ -380,182 +365,44 @@ export default function ProfilePage() {
         {activeTab === "address" && (
           <div className="address-management">
             <h3>Manage Address</h3>
-
             {addresses.map((addr) => (
               <div key={addr._id} className="address-card">
                 <div className="d-flex align-items-start justify-content-between">
                   <div>
                     <div className="d-flex align-items-center mb-1">
                       <strong className="me-2">{addr.name}</strong>
-                      <span className="badge bg-secondary me-2">
-                        {addr.type}
-                      </span>
+                      <span className="badge bg-secondary me-2">{addr.type}</span>
                       <span>{addr.mobile}</span>
                     </div>
                     <p className="mb-1 text-muted">
-                      {addr.addressLine1}, {addr.addressLine2},{" "}
-                      {addr.landmark}, {addr.city}, {addr.state} -{" "}
-                      {addr.pincode}
+                      {addr.addressLine1}, {addr.addressLine2}, {addr.landmark}, {addr.city}, {addr.state} - {addr.pincode}
                     </p>
                   </div>
-                  <div>
-                    <button
-                      className="btn btn-primary btn-sm me-2"
-                      onClick={() => handleEditAddress(addr)}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      className="btn btn-danger btn-sm"
-                      onClick={() => handleDeleteAddress(addr._id)}
-                    >
-                      Delete
-                    </button>
+                  <div className="address-btn">
+                    <button className="btn btn-primary btn-sm me-2" onClick={() => handleEditAddress(addr)}>Edit</button>
+                    <button className="btn btn-danger btn-sm" onClick={() => handleDeleteAddress(addr._id)}>Delete</button>
                   </div>
                 </div>
               </div>
             ))}
-
             {showAddressForm && (
-              <form
-                className="address-form"
-                onSubmit={handleAddressSubmit}
-              >
-                <input
-                  placeholder="Name"
-                  value={addressForm.name}
-                  onChange={(e) =>
-                    setAddressForm({
-                      ...addressForm,
-                      name: e.target.value,
-                    })
-                  }
-                  required
-                />
-                <input
-                  placeholder="Mobile"
-                  value={addressForm.mobile}
-                  onChange={(e) =>
-                    setAddressForm({
-                      ...addressForm,
-                      mobile: e.target.value,
-                    })
-                  }
-                  required
-                />
-                <input
-                  placeholder="Alternate Mobile"
-                  value={addressForm.altMobile}
-                  onChange={(e) =>
-                    setAddressForm({
-                      ...addressForm,
-                      altMobile: e.target.value,
-                    })
-                  }
-                />
-                <input
-                  placeholder="Address Line 1"
-                  value={addressForm.addressLine1}
-                  onChange={(e) =>
-                    setAddressForm({
-                      ...addressForm,
-                      addressLine1: e.target.value,
-                    })
-                  }
-                  required
-                />
-                <input
-                  placeholder="Address Line 2"
-                  value={addressForm.addressLine2}
-                  onChange={(e) =>
-                    setAddressForm({
-                      ...addressForm,
-                      addressLine2: e.target.value,
-                    })
-                  }
-                />
-                <input
-                  placeholder="Landmark"
-                  value={addressForm.landmark}
-                  onChange={(e) =>
-                    setAddressForm({
-                      ...addressForm,
-                      landmark: e.target.value,
-                    })
-                  }
-                />
-                <input
-                  placeholder="City"
-                  value={addressForm.city}
-                  onChange={(e) =>
-                    setAddressForm({
-                      ...addressForm,
-                      city: e.target.value,
-                    })
-                  }
-                  required
-                />
-                <input
-                  placeholder="State"
-                  value={addressForm.state}
-                  onChange={(e) =>
-                    setAddressForm({
-                      ...addressForm,
-                      state: e.target.value,
-                    })
-                  }
-                  required
-                />
-                <input
-                  placeholder="Pincode"
-                  value={addressForm.pincode}
-                  onChange={(e) =>
-                    setAddressForm({
-                      ...addressForm,
-                      pincode: e.target.value,
-                    })
-                  }
-                  required
-                />
-                <select
-                  value={addressForm.type}
-                  onChange={(e) =>
-                    setAddressForm({
-                      ...addressForm,
-                      type: e.target.value,
-                    })
-                  }
-                >
+              <form className="address-form" onSubmit={handleAddressSubmit}>
+                <input placeholder="Name" value={addressForm.name} onChange={(e) => setAddressForm({ ...addressForm, name: e.target.value })} required />
+                <input placeholder="Mobile" value={addressForm.mobile} onChange={(e) => setAddressForm({ ...addressForm, mobile: e.target.value })} required />
+                <input placeholder="Alternate Mobile" value={addressForm.altMobile} onChange={(e) => setAddressForm({ ...addressForm, altMobile: e.target.value })} />
+                <input placeholder="Address Line 1" value={addressForm.addressLine1} onChange={(e) => setAddressForm({ ...addressForm, addressLine1: e.target.value })} required />
+                <input placeholder="Address Line 2" value={addressForm.addressLine2} onChange={(e) => setAddressForm({ ...addressForm, addressLine2: e.target.value })} />
+                <input placeholder="Landmark" value={addressForm.landmark} onChange={(e) => setAddressForm({ ...addressForm, landmark: e.target.value })} />
+                <input placeholder="City" value={addressForm.city} onChange={(e) => setAddressForm({ ...addressForm, city: e.target.value })} required />
+                <input placeholder="State" value={addressForm.state} onChange={(e) => setAddressForm({ ...addressForm, state: e.target.value })} required />
+                <input placeholder="Pincode" value={addressForm.pincode} onChange={(e) => setAddressForm({ ...addressForm, pincode: e.target.value })} required />
+                <select value={addressForm.type} onChange={(e) => setAddressForm({ ...addressForm, type: e.target.value })}>
                   <option value="Home">Home</option>
                   <option value="Office">Office</option>
                 </select>
                 <div className="d-flex gap-2 mt-2">
-                  <button type="submit" className="btn btn-primary">
-                    Update Address
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-secondary"
-                    onClick={() => {
-                      setShowAddressForm(false);
-                      setIsEditing(false);
-                      setEditId(null);
-                      setAddressForm({
-                        name: "",
-                        mobile: "",
-                        altMobile: "",
-                        addressLine1: "",
-                        addressLine2: "",
-                        landmark: "",
-                        city: "",
-                        state: "",
-                        pincode: "",
-                        type: "Home",
-                      });
-                    }}
-                  >
-                    Cancel
-                  </button>
+                  <button type="submit" className="btn btn-primary">Update Address</button>
+                  <button type="button" className="btn btn-secondary" onClick={() => { setShowAddressForm(false); setIsEditing(false); setEditId(null); setAddressForm({ name: "", mobile: "", altMobile: "", addressLine1: "", addressLine2: "", landmark: "", city: "", state: "", pincode: "", type: "Home" }); }}>Cancel</button>
                 </div>
               </form>
             )}
@@ -573,38 +420,18 @@ export default function ProfilePage() {
                 <div key={o._id} className="order-card">
                   {o.items.map((item, idx) => (
                     <div key={idx} className="order-item">
-                      <img
-                        src={normalizeImage(item.productId.image)}
-                        alt={item.productId?.name || "Product Image"}
-                        className="order-img"
-                      />
+                      <img src={normalizeImage(item.productId.image)} alt={item.productId?.name || "Product Image"} className="order-img" />
                       <div>
                         <h6>{item.productId?.name}</h6>
                         <small>₹{item.price.toFixed(2)}</small> <br />
-                        <small>
-                          Ordered on {new Date(o.createdAt).toLocaleDateString()}
-                        </small>
-
+                        <small>Ordered on {new Date(o.createdAt).toLocaleDateString()}</small>
                         {renderProgress(o.status)}
-
                         {o.status === "Delivered" && (
-                          <button
-                            className="btn btn-outline-success btn-sm mt-1"
-                            onClick={() => handleReviewOrder(o._id)}
-                          >
-                            Review
-                          </button>
+                          <button className="btn btn-outline-success btn-sm mt-1" onClick={() => handleReviewOrder(o._id)}>Review</button>
                         )}
-                        {o.status !== "Delivered" &&
-                          o.status !== "Cancelled" &&
-                          o.status !== "Refunded" && (
-                            <button
-                              className="btn btn-outline-danger btn-sm mt-1"
-                              onClick={() => handleCancelOrder(o._id)}
-                            >
-                              Cancel Order
-                            </button>
-                          )}
+                        {o.status !== "Delivered" && o.status !== "Cancelled" && o.status !== "Refunded" && (
+                          <button className="btn btn-outline-danger btn-sm mt-1" onClick={() => handleCancelOrder(o._id)}>Cancel Order</button>
+                        )}
                       </div>
                     </div>
                   ))}
@@ -620,10 +447,7 @@ export default function ProfilePage() {
         {activeTab === "support" && (
           <div>
             <h3>Support</h3>
-            <p>
-              For support, please contact support@example.com or call +91
-              98765 43210
-            </p>
+            <p>For support, please contact support@example.com or call +91 98765 43210</p>
           </div>
         )}
       </main>

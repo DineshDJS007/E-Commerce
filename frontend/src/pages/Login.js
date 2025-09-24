@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "../styles/Login.css";
+import { UserContext } from "../contexts/userContext"; // <-- Import UserContext
 
 export default function Login({ embedded }) {
   const [form, setForm] = useState({ email: "", password: "" });
-  const [toast, setToast] = useState({ message: "", type: "" }); // type: success | error
+  const [toast, setToast] = useState({ message: "", type: "" });
   const [loading, setLoading] = useState(false);
   const nav = useNavigate();
+  const { fetchUser } = useContext(UserContext); // <-- Access fetchUser to update user context
 
   const submit = async (e) => {
     e.preventDefault();
@@ -24,9 +26,12 @@ export default function Login({ embedded }) {
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Login failed");
 
+      // Update user state immediately in header
+      await fetchUser();
+
       setToast({ message: "Login successful! Redirecting…", type: "success" });
 
-      setTimeout(() => nav("/"), 1500); // Redirect after showing toast
+      setTimeout(() => nav("/"), 1000);
     } catch (err) {
       setToast({ message: err.message, type: "error" });
     } finally {
@@ -34,7 +39,6 @@ export default function Login({ embedded }) {
     }
   };
 
-  // Automatically hide toast after 3 seconds
   useEffect(() => {
     if (toast.message) {
       const timer = setTimeout(() => setToast({ message: "", type: "" }), 3000);
@@ -80,7 +84,6 @@ export default function Login({ embedded }) {
           )}
         </div>
 
-        {/* Toast */}
         {toast.message && (
           <div className="toast-container">
             <div
