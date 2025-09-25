@@ -8,7 +8,6 @@ export default function AddOrEditProduct() {
   const nav = useNavigate();
   const location = useLocation();
   const id = location.state?.id;
- 
 
   const [form, setForm] = useState({
     name: "",
@@ -40,7 +39,14 @@ export default function AddOrEditProduct() {
           description: data.description || "",
         });
 
-        setPreview(data.image);
+        // ✅ Ensure full image URL for preview
+        if (data.image) {
+          setPreview(
+            data.image.startsWith("http")
+              ? data.image
+              : `${process.env.REACT_APP_BACKEND_URL}${data.image}`
+          );
+        }
       } catch (err) {
         setError(err.message);
       }
@@ -69,18 +75,25 @@ export default function AddOrEditProduct() {
       formData.append("description", form.description);
       if (image) formData.append("image", image);
 
-      const url = id ? `${process.env.REACT_APP_BACKEND_URL}/api/products/${id}` : `${process.env.REACT_APP_BACKEND_URL}/api/products`;
+      const url = id
+        ? `${process.env.REACT_APP_BACKEND_URL}/api/products/${id}`
+        : `${process.env.REACT_APP_BACKEND_URL}/api/products`;
       const method = id ? "PUT" : "POST";
 
       const res = await fetch(url, { method, body: formData });
       if (!res.ok) {
         let data;
-        try { data = await res.json(); } catch { data = {}; }
+        try {
+          data = await res.json();
+        } catch {
+          data = {};
+        }
         throw new Error(data.message || "Failed to save product");
       }
 
       setToast(id ? "Product updated successfully!" : "Product added successfully!");
 
+      // ✅ Auto-hide toast after 2s and navigate
       setTimeout(() => {
         setToast("");
         nav("/admin/products");
@@ -170,13 +183,7 @@ export default function AddOrEditProduct() {
             />
 
             <button className="btn btn-success w-100" disabled={loading}>
-              {loading
-                ? id
-                  ? "Updating…"
-                  : "Adding…"
-                : id
-                ? "Update Product"
-                : "Add Product"}
+              {loading ? (id ? "Updating…" : "Adding…") : id ? "Update Product" : "Add Product"}
             </button>
           </form>
         </div>

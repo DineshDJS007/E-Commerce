@@ -26,7 +26,11 @@ const __dirname = path.dirname(__filename);
 
 // ✅ Middleware
 app.use(express.json());
+
+// ✅ Serve uploads from backend/uploads
+// Serve uploads folder (always absolute to backend)
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 
 // ✅ CORS configuration
 const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
@@ -71,5 +75,7 @@ app.get("/", (req, res) => {
 // ✅ Start server
 const PORT = process.env.PORT || 9000;
 app.listen(PORT, () =>
-  console.log(`🚀 Server running on port ${PORT} in ${process.env.NODE_ENV} mode`)
+  console.log(
+    `🚀 Server running on port ${PORT} in ${process.env.NODE_ENV} mode`
+  )
 );
