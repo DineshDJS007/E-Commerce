@@ -28,17 +28,25 @@ const __dirname = path.dirname(__filename);
 app.use(express.json());
 
 // ✅ Serve uploads from backend/uploads
-// Serve uploads folder (always absolute to backend)
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-
 // ✅ CORS configuration
-const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
+const allowedOrigins = [
+  "http://localhost:3000",                       // local dev
+  "https://e-commerce-app-yxe1.onrender.com"    // deployed frontend
+];
 
 app.use(
   cors({
-    origin: FRONTEND_URL, // must match frontend domain
-    credentials: true,    // allow cookies
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true); // allow non-browser requests (Postman, etc.)
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("CORS policy: This origin is not allowed."));
+      }
+    },
+    credentials: true,
   })
 );
 
@@ -52,9 +60,9 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: process.env.NODE_ENV === "production", // only HTTPS in production
+      secure: process.env.NODE_ENV === "production", // HTTPS only in prod
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-      httpOnly: true, // cookie not accessible via JS
+      httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24, // 1 day
     },
   })
