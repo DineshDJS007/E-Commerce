@@ -16,4 +16,4 @@ router.get("/:id", getProduct);
 router.put("/:id", upload.single("image"), updateProduct); // 👈 added update route
 router.delete("/:id", deleteProduct);
 
-export default router;
+export default router;  

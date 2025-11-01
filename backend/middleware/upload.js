@@ -12,6 +12,9 @@ const uploadDir = path.join(__dirname, "../uploads");
 // ✅ Ensure uploads folder exists
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
+   console.log("📁 Created uploads folder at:", uploadDir);
+} else {
+  console.log("📁 Using uploads folder at:", uploadDir);
 }
 
 // ✅ Configure multer storage
@@ -25,6 +28,7 @@ const storage = multer.diskStorage({
       "-" +
       Math.round(Math.random() * 1e9) +
       path.extname(file.originalname);
+      console.log("📸 Saving file to:", path.join(uploadDir, uniqueName));
     cb(null, uniqueName);
   },
 });

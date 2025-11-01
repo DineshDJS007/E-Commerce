@@ -33,7 +33,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 // ✅ CORS configuration
 const allowedOrigins = [
   "http://localhost:3000",       // Dev frontend
-  process.env.FRONTEND_URL       // Deployed frontend
+  // process.env.FRONTEND_URL       // Deployed frontend
 ];
 
 app.use(cors({
